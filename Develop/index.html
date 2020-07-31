@@ -21,11 +21,28 @@
     <p id="currentDay" class="lead"></p>
   </header>
   <div class="container-fluid" id="planner-body">
-    <!-- Timeblocks go here -->
+  
+      <!-- Template row -->
+      <div class="row">
+        <div class="col-md-2 time-block">Time</div>
+        <div class="col-md-8 description past">Description
+          <!-- <form method="POST">
+            <label for="time-event">Description</label>
+            <input type="text" name="time-specifics" id="time-specifics" placeholder="Click here to add an event">
+          </form> -->
+        </div>
+        <div class="col-md-2 save-btn">Save</div>
+      </div>
 
       <div class="row">
         <div class="col-md-2 time-block">Time</div>
-        <div class="col-md-8 description">Description</div>
+        <div class="col-md-8 description present">Description</div>
+        <div class="col-md-2 save-btn">Save</div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2 time-block">Time</div>
+        <div class="col-md-8 description future">Description</div>
         <div class="col-md-2 save-btn">Save</div>
       </div>
 
