@@ -40,23 +40,53 @@ console.log(currentDayEl);
 
 // 2nd Try
 const hours = [9, 10, 11, 12, 13, 14, 15, 16, 17];
+const description = [{
+
+    9: '',
+    10: '',
+
+}];
+const save = '';
+
 
 const container = $('#planner-body');
 
 hours.forEach(function (hour) {
-    const hourDiv = $('<div>');
-    hourDiv.attr('id', 'hour-' + hour);
+    const rowDiv = $('<div>');
+    const timeDiv = $('<div>'); 
+    const descriptionDiv = $('<div>').insertAfter('<div>');
+    const saveDiv = $('<div>');
 
-    function displayHours () {
-        if (hour === 12) {
-            hourDiv.text((hour = 12) + ' ' + 'PM');
-        } else {
-            hourDiv.text(`${hour % 12} ${(hour > 11) ? 'PM' : 'AM'}`);
+    rowDiv.addClass('row');
+
+        timeDiv.attr('id', 'hour-' + hour);
+        timeDiv.addClass('col-md-2').addClass('time-block');
+
+        descriptionDiv.addClass('col-md-8').addClass('description');
+
+        saveDiv.addClass('col-md-2').addClass('save-btn');
+
+        function displayTime () {
+            if (hour === 12) {
+                timeDiv.text((hour = 12) + ' ' + 'PM');
+            } else {
+                timeDiv.text(`${hour % 12} ${(hour > 11) ? 'PM' : 'AM'}`);
+            }
         }
-    }
 
-    displayHours();
-    container.append(hourDiv);
+    // function displayDescription () {
+
+    //     descriptionDiv.text()
+
+    // }
+
+    displayTime();
+    // displayDescription();
+    // displaySave();
+    container.append(rowDiv);
+    rowDiv.append(timeDiv);
+    rowDiv.append(descriptionDiv);
+    rowDiv.append(saveDiv);
 });
     // Alternative to above displayHours function
 
@@ -66,6 +96,8 @@ hours.forEach(function (hour) {
     // if (hour === 12) {
     //     hourDiv.text((hour = 12) + ' ' + 'PM');
     // }
+
+    de
 
 // Displaying the current date
 const currentDay = moment().format('dddd, MMMM Do YYYY');
