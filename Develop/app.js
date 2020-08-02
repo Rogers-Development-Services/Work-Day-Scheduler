@@ -8,19 +8,22 @@ const currentDayEl = $('#currentDay');
 // console.log(currentDayEl);
 
 const previousHours = moment().startOf('hour').fromNow();
-console.log("previous hours started " + previousHours + " ago");
+// console.log("previous hours started " + previousHours + " ago");
 
 const currentHour = moment().hour();
 // const currentHour = moment().get('hour');
-console.log("the current hour is " + currentHour);
+// console.log("the current hour is " + currentHour);
 
 const commingHours = moment().endOf('hour').fromNow();
-console.log("coming hours are in " + commingHours);
+// console.log("coming hours are in " + commingHours);
 
 const hours = [9, 10, 11, 12, 13, 14, 15, 16, 17];
-const descriptionInput = [''];
 
 const container = $('#planner-body');
+
+// Do i need to 9 event listeners or can I somehow loop this?
+const saveBtn = $('#save-btn');  //create an id for click handlers
+console.log(saveBtn);
 
 // Displaying the current date
 const currentDay = moment().format('dddd, MMMM Do YYYY');                       //This sets the formated current day into currentDay     
@@ -34,31 +37,39 @@ hours.forEach(function (hour) {                                                 
    
     const formEl = $('<form>');
     const labelEl = $('<label>');
-    const inputEl = $('<input>');
+    const textAreaEl = $('<textarea>');
    
-    const saveDiv = $('<div>');                                                 //This selects the fourth div to be created now called saveDiv
+    const saveDiv = $('<div>');
+    const iTag = $('<i>');                                                 //This selects the fourth div to be created now called saveDiv
 
     rowDiv.addClass('row');                                                     //This adds the class 'row' to timeDiv
 
         timeDiv.attr('id', 'hour-' + hour);                                         //This adds the id attribute to the timeDiv called 'hour + (9-17)'
-        timeDiv.addClass('col-md-2').addClass('time-block');                        //This adds two class attributes to style the timeDiv
+        timeDiv.addClass('col-md-2 time-block');                        //This adds two class attributes to style the timeDiv
 
-            descriptionDiv.addClass('col-md-8').addClass('description');                //This adds two class attributes to style descriptionDiv
+        descriptionDiv.addClass('col-md-8 description');                //This adds two class attributes to style descriptionDiv
 
-                formEl.attr({
-                    method: 'POST',
-                    id: 'hour-' + hour + '-form'
-                }); 
-                labelEl.attr('for', 'hour' + hour + '-event');
-                inputEl.attr({
-                    type: 'text',
-                    name: 'hour-' + hour + '-specifics',
-                    id: 'hour-' + hour + '-specifics'
-                });
+            formEl.attr({
+                method: 'POST',
+                id: 'hour-' + hour + '-form'
+            }); 
+            labelEl.attr('for', 'hour' + hour + '-event');
+            textAreaEl.attr({
+                name: 'hour-' + hour + '-specifics',
+                id: hour,
+                form: 'hour-' + hour + '-form', //make this a name look into for
+                placeholder: 'Add Event'
+            });
 
                 // formEl.append('<label for="time-event">', '<input type="text" name="time-specifics" id="time-specifics" placeholder="Click here to add an event">');
     
-        saveDiv.addClass('col-md-2').addClass('save-btn');                          //This adds two class attributes to style saveDiv
+        saveDiv.addClass('col-md-2 save-btn'); 
+        saveDiv.attr('id','save-btn');                         //This adds two class attributes to style saveDiv
+            iTag.addClass('fas fa-save')
+            iTag.attr({
+                id: 'hour-' + hour + '-button',
+                'aria-hidden': 'true'
+            });
 
     function displayTime() {                                                        //This function displays the workday hours from 9am-5pm converted from army time
 
@@ -81,14 +92,13 @@ hours.forEach(function (hour) {                                                 
     }
 
     displayTime();
-    colorHours();                                                               //This calls the function
-    container.append(rowDiv);                                                   //These append the new tags to node
-    rowDiv.append(timeDiv);                                                     //
-    rowDiv.append(descriptionDiv);                                              //
-    descriptionDiv.append(formEl);                                              //
-    formEl.append(labelEl);                                                     //
-    formEl.append(inputEl);                                                     //
-    rowDiv.append(saveDiv);                                                     //
+    colorHours();   
+    container.append(rowDiv);                                                   
+    rowDiv.append(timeDiv, descriptionDiv, saveDiv);  
+    descriptionDiv.append(formEl);                                           
+    formEl.append(labelEl, textAreaEl);                                       
+    saveDiv.append(iTag);
+ 
 });
 // Alternative to above displayHours function
 
@@ -101,6 +111,20 @@ hours.forEach(function (hour) {                                                 
 
 // WHEN I click the save button for that timeblock THEN the text for that event is saved in local storage []
 
+$(document).on('click', saveBtn, function(event) {
+    // would I use stopPropogation()?
+    event.preventDefault();  //prevents forms from refreshing and side effects
+    console.log($(event.target).siblings('.description').find('textarea'));
+
+    var specificRow =$(event.target).siblings('.description').find('textarea');
+
+    // if (event.target === saveBtn) {
+    //     close();
+    //   }
+    
+
+    localStorage.setItem(specificRow.attr('id'), specificRow.val());
+})
     // assign an event listener for the events and save col of each hour
     // create an on click event which allows the user to write in a discription of their event on the event column
     // create an event listener for the save column,
