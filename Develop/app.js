@@ -42,6 +42,8 @@ function colorHours(hour, descriptionDiv) {
     }
 }
 
+    // Display the current date
+currentDayEl.text("Today is " + currentDay);
 
     // Building the scheduler with .forEach 
 hours.forEach(function (hour) {                                                
@@ -75,7 +77,7 @@ hours.forEach(function (hour) {
                 name: 'hour-' + hour + '-specifics',
                 id: hour,
                 form: 'hour-' + hour + '-form', 
-                placeholder: 'Add Event',
+                // placeholder: 'Add Event',
             });
             textAreaEl.addClass('test');
             // Once created each hours text area will display the information from local key pair value
@@ -103,11 +105,3 @@ hours.forEach(function (hour) {
     saveDiv.append(iTag);
  
 });
-
-$(document).on('click', saveBtn, function(event) {
-    
-    event.preventDefault(); 
-    var specificRow =$(event.target).siblings('.description').find('textarea');
-    localStorage.setItem(specificRow.attr('id'), specificRow.val());
-
-})
