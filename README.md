@@ -8,7 +8,7 @@ Click this link to access the [Deployed Application](https://rogers-development-
 
 Here is an example of our site in action:
 
-![alt text](https://raw.githubusercontent.com/Rogers-Development-Services/Code-Quiz/master/Assets/Images/Deployed%20Application.JPG "Application Img1")
+![alt text](https://raw.githubusercontent.com/Rogers-Development-Services/Work-Day-Scheduler/master/Assets/Images/Deployed%20Application.png "Application Img1")
 
 ## Usage 
 
